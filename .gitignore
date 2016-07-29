@@ -1,0 +1,10 @@
+Listings/
+Objects/
+sch/__Previews/
+sch/*.PcbDoc.htm
+lib/Packages/
+.metadata/
+RemoteSystemsTempFiles/
+*.uvgui.*
+JLinkLog.txt
+JLinkSettings.ini

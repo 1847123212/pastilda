@@ -56,16 +56,16 @@ int SST25::write_sectors(uint32_t sector, uint32_t count, const void *buf)
 
 	uint32_t start_address = (sector * SECTOR_SIZE);
 	uint32_t data_len = SECTOR_SIZE * count;
-
+	uint8_t * buf_u8 = (uint8_t *)buf;
 	for(int i = 0; i < count; i++)
 	{
 		erase_sector(sector + i);
 		uint32_t address = ((sector + i) * SECTOR_SIZE);
 
 		for (int j = 0; j < PAGE_COUNT_IN_SECTOR; j++) {
-			page_program(address, (uint8_t*)buf, PAGE_SIZE);
+			page_program(address, buf_u8, PAGE_SIZE);
 			address += PAGE_SIZE;
-			buf += PAGE_SIZE;
+			buf_u8 += PAGE_SIZE;
 		}
 	}
 	return (count);
@@ -80,7 +80,7 @@ void SST25::read(uint32_t address, uint32_t count, uint8_t* buf)
 {
 	wait_write_complete();
 	select_device();
-	uint8_t tx[4] = {OPCODE_READ, ((address >> 16) & 0xFF), ((address >> 8) & 0xFF), (address & 0xFF)};
+	uint8_t tx[4] = {OPCODE_READ, (uint8_t)((address >> 16) & 0xFF), (uint8_t)((address >> 8) & 0xFF), (uint8_t)(address & 0xFF)};
 	write_buffer(tx, 4);
 	uint8_t rx[count];
 	read_buffer(rx, count);
@@ -92,7 +92,7 @@ void SST25::read_high_speed(uint32_t address, uint32_t count, uint8_t* buf)
 {
 	wait_write_complete();
 	select_device();
-	uint8_t tx[5] = {OPCODE_FAST_READ, ((address >> 16) & 0xFF), ((address >> 8) & 0xFF), (address & 0xFF), DUMMY_BYTE};
+	uint8_t tx[5] = {OPCODE_FAST_READ, (uint8_t)((address >> 16) & 0xFF), (uint8_t)((address >> 8) & 0xFF), (uint8_t)(address & 0xFF), DUMMY_BYTE};
 	write_buffer(tx, 5);
 	uint8_t rx[count];
 	read_buffer(rx, count);
@@ -106,7 +106,11 @@ void SST25::page_program(uint32_t address, uint8_t *data, uint16_t count)
 	enable_write();
 	select_device();
 	uint16_t total_size = (4 + count);
-	uint8_t tx[total_size] = {OPCODE_PAGE_PROGRAM, ((address >> 16) & 0xFF), ((address >> 8) & 0xFF), (address & 0xFF)};
+	uint8_t tx[total_size];
+	tx[0]= OPCODE_PAGE_PROGRAM;
+	tx[1] = (uint8_t)((address >> 16) & 0xFF);
+	tx[2] = (uint8_t)((address >> 8) & 0xFF);
+	tx[3] = (uint8_t)(address & 0xFF);
 	for (int i = 0, j = 4; i < count; i++, j++) {
 		tx[j] = data[i];
 	}
@@ -119,7 +123,7 @@ void SST25::erase_sector(uint32_t sector)
 	enable_write();
 	uint32_t address = (sector * SECTOR_SIZE);
 	select_device();
-	uint8_t tx[4] = {OPCODE_SECTOR_ERASE, ((address >> 16) & 0xFF), ((address >> 8) & 0xFF), (address & 0xFF)};
+	uint8_t tx[4] = {OPCODE_SECTOR_ERASE, (uint8_t)((address >> 16) & 0xFF), (uint8_t)((address >> 8) & 0xFF), (uint8_t)(address & 0xFF)};
 	write_buffer(tx, 4);
 	release_device();
 }
@@ -129,7 +133,7 @@ void SST25::erase_block_32K(uint32_t start_sector)
 	enable_write();
 	uint32_t address = (start_sector * SECTOR_SIZE);
 	select_device();
-	uint8_t tx[4] = {OPCODE_BLOCK_ERASE_32K, ((address >> 16) & 0xFF), ((address >> 8) & 0xFF), (address & 0xFF)};
+	uint8_t tx[4] = {OPCODE_BLOCK_ERASE_32K, (uint8_t)((address >> 16) & 0xFF), (uint8_t)((address >> 8) & 0xFF), (uint8_t)(address & 0xFF)};
 	write_buffer(tx, 4);
 	release_device();
 }
@@ -139,7 +143,7 @@ void SST25::erase_block_64K(uint32_t start_sector)
 	enable_write();
 	uint32_t address = (start_sector * SECTOR_SIZE);
 	select_device();
-	uint8_t tx[4] = {OPCODE_BLOCK_ERASE_64K, ((address >> 16) & 0xFF), ((address >> 8) & 0xFF), (address & 0xFF)};
+	uint8_t tx[4] = {OPCODE_BLOCK_ERASE_64K, (uint8_t)((address >> 16) & 0xFF), (uint8_t)((address >> 8) & 0xFF), (uint8_t)(address & 0xFF)};
 	write_buffer(tx, 4);
 	release_device();
 }

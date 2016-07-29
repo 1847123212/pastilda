@@ -163,12 +163,7 @@ void FlashMemory::_set_fat_system_region()
 	_set_root_dir_region();
 }
 
-void FlashMemory::_set_boot_region()
-{
-	uint8_t copy_to[BOOT_SIZE];
-	memset(copy_to, 0, BOOT_SIZE);
-
-	uint8_t BootSector[] = {
+const uint8_t BootSector[] = {
 		0xEB, 0x58, 0x90,					                // code to jump to the bootstrap code
 		0x57, 0x49, 0x4E, 0x49, 0x4D, 0x41, 0x47, 0x45,     // OEM ID
 		0x00, 0x02,				                            // bytes per sector
@@ -190,6 +185,11 @@ void FlashMemory::_set_boot_region()
 		0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, // volume label
 		0x46, 0x41, 0x54, 0x31, 0x32, 0x20, 0x20, 0x20	    // filesystem type
 	};
+
+void FlashMemory::_set_boot_region()
+{
+	uint8_t copy_to[BOOT_SIZE];
+	memset(copy_to, 0, BOOT_SIZE);
 
 	memcpy(copy_to, BootSector, sizeof(BootSector));
 	copy_to[BOOT_SIZE - 2] = 0x55;

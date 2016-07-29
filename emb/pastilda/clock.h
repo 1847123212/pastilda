@@ -27,12 +27,28 @@
 
 static constexpr struct rcc_clock_scale rcc_hse_25mhz_to_hclk_120mhz =
 {
+#ifdef STM32F20x_16
+	#warning "Setting for STM32F20x, 16MHz"
+	16 /*PLLM*/,
+	240 /*PLLN*/,
+	2 /*PLLP*/,
+	5 /*PLLQ*/,
+	(FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS) /*FLASH CONFIG*/,
+	RCC_CFGR_HPRE_DIV_NONE /*HPRE*/,
+	RCC_CFGR_PPRE_DIV_4 /*PPRE1*/,
+	RCC_CFGR_PPRE_DIV_2 /*PPRE2*/,
+	1 /*POWER SAVE*/,
+	120000000 /*AHB FREQ*/,
+	30000000 /*APB1_FREQ*/,
+	60000000 /*APB2_FREQ*/
+#else
 		15 /*PLLM*/, 144 /*PLLN*/, 2 /*PLLP*/, 5 /*PLLQ*/,
 		(FLASH_ACR_ICE | FLASH_ACR_DCE | FLASH_ACR_LATENCY_3WS) /*FLASH CONFIG*/,
 		RCC_CFGR_HPRE_DIV_NONE /*HPRE*/,
 		RCC_CFGR_PPRE_DIV_4 /*PPRE1*/, RCC_CFGR_PPRE_DIV_2 /*PPRE2*/,
 		1 /*POWER SAVE*/, 120000000 /*AHB FREQ*/,
 		30000000 /*APB1_FREQ*/, 60000000 /*APB2_FREQ*/
+#endif
 };
 
 static void clock_setup()
