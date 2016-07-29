@@ -45,11 +45,14 @@ void App::process()
 
 void App::redirect(uint8_t *data, uint8_t len)
 {
+	SEGGER_RTT_WriteString(0, "App::redirect\r\n");
 	app_pointer->usb_composite->usb_send_packet(data, len);
 }
 
 void App::control_interception()
 {
+	SEGGER_RTT_WriteString(0, "App::control_interception\r\n");
+
 	memset(app_pointer->key, 0, 8);
 	app_pointer->key[2] = KEY_W;
 	app_pointer->key[3] = KEY_O;

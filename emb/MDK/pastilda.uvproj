@@ -139,7 +139,7 @@
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>0</RunToMain>
+            <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -372,9 +372,9 @@
             <v6WtE>0</v6WtE>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F4 USE_STM32F4_USBH_DRIVER_HS STM32F20x_16</Define>
+              <Define>STM32F4 USE_STM32F4_USBH_DRIVER_HS STM32F20x_16 USE_RTT</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\lib\libopencm3\include;..\..\lib\libopencm3\lib;..\pastilda\app;..\pastilda;..\pastilda\flash;..\pastilda\lib\libopenfat\openfat;..\pastilda\lib\libusbhost;..\pastilda\lib\libopencm3_cpp_extensions;..\pastilda\lib\libopenfat;..\MDK;..\pastilda\flash\drv</IncludePath>
+              <IncludePath>..\..\lib\libopencm3\include;..\..\lib\libopencm3\lib;..\pastilda\app;..\pastilda;..\pastilda\flash;..\pastilda\lib\libopenfat\openfat;..\pastilda\lib\libusbhost;..\pastilda\lib\libopencm3_cpp_extensions;..\pastilda\lib\libopenfat;..\MDK;..\pastilda\flash\drv;..\RTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -661,6 +661,46 @@
               <FileName>SST25.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\pastilda\flash\drv\SST25.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>RTT</GroupName>
+          <Files>
+            <File>
+              <FileName>HardFaultHandler.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\RTT\HardFaultHandler.S</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_HardFaultHandler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RTT\SEGGER_HardFaultHandler.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RTT\SEGGER_RTT.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_Conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RTT\SEGGER_RTT_Conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RTT\SEGGER_RTT.h</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RTT\SEGGER_RTT_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>SEGGER_RTT_Syscalls_KEIL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RTT\SEGGER_RTT_Syscalls_KEIL.c</FilePath>
             </File>
           </Files>
         </Group>

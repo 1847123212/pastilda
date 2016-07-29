@@ -6,5 +6,6 @@ lib/Packages/
 .metadata/
 RemoteSystemsTempFiles/
 *.uvgui.*
+*.uvopt
 JLinkLog.txt
 JLinkSettings.ini
