@@ -197,6 +197,7 @@ void FlashMemory::_set_boot_region()
 
 	write_sectors(0, BOOT_SECTOR, BOOT_SECTOR_COUNT, copy_to);
 }
+
 void FlashMemory::_set_fat_region()
 {
 	uint8_t copy_to[FAT_SIZE];

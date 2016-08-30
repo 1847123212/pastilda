@@ -83,10 +83,10 @@ void SST25::read(uint32_t address, uint32_t count, uint8_t* buf)
 	uint8_t tx[4] = {OPCODE_READ, (uint8_t)((address >> 16) & 0xFF), (uint8_t)((address >> 8) & 0xFF), (uint8_t)(address & 0xFF)};
 	write_buffer(tx, 4);
 	uint8_t rx[count];
-	read_buffer(rx, count);
+	read_buffer(buf, count);
 	release_device();
-	memcpy(buf, rx, count);
-	//return (rx);
+	// memcpy(buf, rx, count);
+	// return (rx);
 }
 void SST25::read_high_speed(uint32_t address, uint32_t count, uint8_t* buf)
 {
