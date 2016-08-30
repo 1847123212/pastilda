@@ -212,7 +212,7 @@ uint32_t SST25::read_jedec_id()
 	uint8_t rx[3];
 	read_buffer(rx, 3);
 	release_device();
-	return ((rx[0] << 16) | (rx[1] << 8) | rx[3]);
+	return ((rx[0] << 16) | (rx[1] << 8) | rx[2]);
 }
 
 void SST25::select_device()

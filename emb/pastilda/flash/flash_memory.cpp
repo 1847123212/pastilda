@@ -46,9 +46,9 @@ FlashMemory::FlashMemory()
 	_sst25->disable_wtite_protection();
 
 	FatState state = _get_fat_state();
-//	if (state == FatState::FAT_ERROR) {
+	if (state == FatState::FAT_ERROR) {
 		_set_fat_system_region();
-//	}
+	}
 }
 
 uint16_t FlashMemory::get_sector_size(const struct block_device *dev)
